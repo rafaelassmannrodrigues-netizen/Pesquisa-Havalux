@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Havalux — Pesquisa de Mercado 2027</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+:root{--g:#0F6E56;--gd:#074434;--gl:#E1F5EE;--ink:#1A1A1A;--m:#666;--b:#E4E2DA;--bg:#F5F4F0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;background:var(--bg);color:var(--ink);font-size:14px;line-height:1.6;padding-bottom:48px}
+
+/* HEADER */
+.hdr{background:var(--gd);padding:20px 16px 16px}
+.hdr-logo{font-family:Georgia,serif;font-size:22px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#fff}
+.hdr-logo span{color:#5DCAA5}
+.hdr-tag{font-size:10px;color:rgba(255,255,255,.4);letter-spacing:.2em;text-transform:uppercase;margin:3px 0 12px}
+.hdr-title{font-family:Georgia,serif;font-size:18px;font-weight:700;color:#fff;margin-bottom:4px}
+.hdr-desc{font-size:12px;color:rgba(255,255,255,.55);line-height:1.6}
+
+/* PROGRESS */
+.pg-wrap{background:#082e1e;padding:10px 16px;display:flex;align-items:center;gap:10px;position:sticky;top:0;z-index:20}
+.pg-bar{flex:1;height:4px;background:rgba(255,255,255,.12);border-radius:2px}
+.pg-fill{height:100%;background:#5DCAA5;border-radius:2px;transition:width .35s}
+.pg-txt{font-size:11px;color:rgba(255,255,255,.45);white-space:nowrap}
+
+/* SECTION */
+.sec{margin:14px 13px 0}
+.sh{background:var(--gd);padding:13px 15px;border-radius:10px 10px 0 0}
+.sh-num{font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:#5DCAA5;margin-bottom:2px}
+.sh-title{font-family:Georgia,serif;font-size:16px;font-weight:700;color:#fff;margin-bottom:2px}
+.sh-goal{font-size:11px;color:rgba(255,255,255,.5)}
+.sb{background:#fff;border:1px solid var(--b);border-top:none;border-radius:0 0 10px 10px;padding:14px 15px}
+
+/* FIELDS */
+.field{margin-bottom:13px}
+.fl{font-size:12px;font-weight:600;color:var(--ink);margin-bottom:5px;display:block}
+.fh{font-size:11px;color:var(--m);margin-bottom:5px}
+.req{color:#C8401A;margin-left:2px}
+input[type=text],select,textarea{width:100%;border:1.5px solid var(--b);border-radius:8px;padding:10px 12px;font-size:14px;font-family:inherit;background:#fff;color:var(--ink);outline:none;transition:border-color .18s}
+input:focus,select:focus,textarea:focus{border-color:var(--g)}
+select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23888' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;padding-right:32px}
+textarea{resize:vertical;min-height:68px}
+
+/* OPTIONS */
+.opts-wrap{display:flex;flex-direction:column;gap:6px}
+.opts-wrap.grid2{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.opt-item{display:flex;align-items:center;gap:9px;padding:9px 11px;border:1.5px solid var(--b);border-radius:8px;cursor:pointer;-webkit-user-select:none;user-select:none;transition:all .15s}
+.opt-item.on{border-color:var(--g);background:var(--gl)}
+.opt-box{width:17px;height:17px;border:2px solid #ccc;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .15s}
+.opt-item.on .opt-box{border-color:var(--g);background:var(--g)}
+.opt-item.on .opt-box::after{content:'';width:6px;height:6px;background:#fff;border-radius:50%;display:block}
+.opts-wrap[data-type=multi] .opt-box{border-radius:4px}
+.opts-wrap[data-type=multi] .opt-item.on .opt-box::after{content:'✓';font-size:9px;font-weight:700;color:#fff;border-radius:0;background:none}
+
+/* LINE CARDS */
+.line-card{border:1px solid var(--b);border-radius:9px;overflow:hidden;margin-bottom:11px}
+.lc-head{display:flex}
+.lc-img{width:88px;height:88px;object-fit:cover;flex-shrink:0;display:block}
+.lc-img-ph{width:88px;height:88px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;text-align:center;padding:5px}
+.lc-hb{padding:9px 11px;flex:1}
+.lc-name{font-size:13px;font-weight:700;margin-bottom:1px}
+.lc-sub{font-size:11px;color:var(--m);margin-bottom:3px;line-height:1.3}
+.lc-meta{font-size:10px;font-weight:600}
+.lc-desc{padding:9px 12px;font-size:12px;color:#444;line-height:1.55;border-top:1px solid #F0EFEB}
+.lc-canal{padding:3px 12px 7px;font-size:11px;color:var(--m)}
+.lc-rate{padding:9px 12px;border-top:1px solid #F0EFEB;background:#FAFAF7}
+.rl{font-size:11px;font-weight:600;margin-bottom:6px}
+.stars{display:flex;gap:4px}
+.star{background:none;border:none;font-size:26px;color:#DDD;cursor:pointer;padding:2px;line-height:1;transition:color .1s;-webkit-user-select:none}
+.star.on{color:#F5A623}
+.rh{font-size:10px;color:var(--m);margin-top:5px;min-height:14px}
+
+/* PRIORITY SELECT */
+.pri-wrap{display:flex;flex-direction:column;gap:8px}
+.pri-item{display:flex;align-items:center;gap:10px}
+.pri-label{font-size:12px;font-weight:600;color:var(--m);white-space:nowrap;width:80px}
+.pri-item select{flex:1}
+
+/* SKU GRID */
+.sku-grid{display:grid;grid-template-columns:1fr 1fr;gap:5px}
+.sku-count{font-size:11px;font-weight:600;color:var(--g);margin-bottom:8px}
+.sku-check{cursor:pointer;-webkit-user-select:none;user-select:none}
+.sci{display:flex;gap:8px;align-items:flex-start;padding:7px 9px;border:1.5px solid var(--b);border-radius:7px;transition:all .15s}
+.sku-check.on .sci{border-color:var(--g);background:var(--gl)}
+.scb{width:15px;height:15px;border:2px solid #ccc;border-radius:3px;flex-shrink:0;margin-top:2px;display:flex;align-items:center;justify-content:center;transition:all .15s}
+.sku-check.on .scb{background:var(--g);border-color:var(--g)}
+.sku-check.on .scb::after{content:'✓';font-size:9px;color:#fff;font-weight:700}
+.scl{font-size:9px;font-weight:700;display:block;letter-spacing:.04em}
+.scn{font-size:11.5px;display:block;color:var(--ink);line-height:1.3}
+.sku-check input{display:none}
+
+/* PRICE PILLS */
+.pb{margin-bottom:14px}
+.pb-prod{font-size:12px;font-weight:700;margin-bottom:6px;padding-bottom:4px;border-bottom:1px solid #F0EFEB}
+.pills{display:flex;flex-wrap:wrap;gap:5px}
+.pill-opt{padding:6px 11px;border:1.5px solid var(--b);border-radius:20px;cursor:pointer;font-size:12px;font-weight:500;-webkit-user-select:none;user-select:none;transition:all .15s}
+.pill-opt.on{border-color:var(--g);background:var(--g);color:#fff}
+
+/* STARS POSITIONING */
+.pos-stars{display:flex;flex-direction:column;gap:5px}
+.pos-star-row{display:flex;align-items:center;gap:10px;padding:8px 10px;border:1.5px solid var(--b);border-radius:8px;cursor:pointer;-webkit-user-select:none;user-select:none;transition:all .15s}
+.pos-star-row.on{border-color:var(--g);background:var(--gl)}
+.pos-star-row .star-v{font-size:14px;color:#F5A623;min-width:70px}
+.pos-star-row .star-l{font-size:12px}
+
+/* PEDIDO */
+.ped-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.ped-opt{padding:10px 12px;border:1.5px solid var(--b);border-radius:8px;cursor:pointer;font-size:13px;font-weight:500;text-align:center;-webkit-user-select:none;user-select:none;transition:all .15s}
+.ped-opt.on{border-color:var(--g);background:var(--g);color:#fff}
+
+/* SUBMIT */
+.sub-area{margin:18px 13px 0}
+.sub-btn{width:100%;padding:15px;background:var(--g);color:#fff;border:none;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;letter-spacing:.04em;transition:background .18s}
+.sub-btn:active{background:#085041}
+
+/* THANKS */
+.thanks{display:none;text-align:center;padding:40px 20px}
+.tk-icon{font-size:52px;margin-bottom:12px}
+.tk-title{font-family:Georgia,serif;font-size:22px;font-weight:700;color:var(--g);margin-bottom:8px}
+.tk-desc{font-size:13px;color:var(--m);line-height:1.7;margin-bottom:20px}
+.rc{background:#fff;border:1px solid var(--b);border-radius:9px;padding:12px 14px;text-align:left;margin-bottom:8px}
+.rt{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--m);margin-bottom:5px}
+.rv{font-size:13px;color:var(--ink);line-height:1.55}
+.rv .gold{color:#F5A623}
+
+.err{font-size:11px;color:#C8401A;margin-top:4px;display:none}
+.field.error input,.field.error select{border-color:#C8401A}
+.field.error .err{display:block}
+.info-box{background:#F0FBF6;border:1px solid #B0DEC8;border-radius:7px;padding:9px 12px;font-size:12px;color:#0F6E56;margin-bottom:13px}
+
+.lc-imgs{display:flex;gap:4px;width:132px;flex-shrink:0;overflow:hidden}
+.lc-img-small{width:44px;height:88px;object-fit:cover;flex-shrink:0;display:block}
+</style>
+</head>
+<body>
+
+<div class="hdr">
+  <div class="hdr-logo">Hava<span>lux</span></div>
+  <div class="hdr-tag">Pesquisa de Mercado v3 · Coleção 2027</div>
+  <div class="hdr-title">Sua opinião define o lançamento.</div>
+  <div class="hdr-desc">9 partes · ~12 minutos · Suas respostas determinam o mix, os preços e a estratégia de lançamento da Havalux em 2027.</div>
+</div>
+
+<div class="pg-wrap">
+  <div class="pg-bar"><div class="pg-fill" id="pgf" style="width:0%"></div></div>
+  <div class="pg-txt" id="pgt">0% preenchido</div>
+</div>
+
+<div id="form-body">
+
+<!-- ══ PARTE 1 — PERFIL ══ -->
+<div class="sec">
+  <div class="sh"><div class="sh-num">Parte 1 de 9</div><div class="sh-title">Perfil do Representante</div><div class="sh-goal">Objetivo: entender quem está respondendo</div></div>
+  <div class="sb">
+
+    <div class="field" id="f-nome">
+      <label class="fl">Nome completo <span class="req">*</span></label>
+      <input type="text" id="nome" placeholder="Seu nome completo" oninput="updateProg()">
+      <div class="err">Campo obrigatório</div>
+    </div>
+
+    <div class="field">
+      <label class="fl">Empresa / Razão social</label>
+      <input type="text" id="empresa" placeholder="Nome da empresa (opcional)">
+    </div>
+
+    <div class="field" id="f-regiao">
+      <label class="fl">Estado(s) de atuação <span class="req">*</span></label>
+      <input type="text" id="regiao" placeholder="Ex: SC, PR, SP" oninput="updateProg()">
+      <div class="err">Campo obrigatório</div>
+    </div>
+
+    <div class="field">
+      <label class="fl">Cidade principal de atuação</label>
+      <input type="text" id="cidade" placeholder="Cidade onde concentra mais vendas">
+    </div>
+
+    <div class="field" id="f-clientes">
+      <label class="fl">Quantos clientes ativos você possui? <span class="req">*</span></label>
+      <select id="clientes" onchange="updateProg()">
+        <option value="">Selecione...</option>
+        <option>0 a 100</option><option>100 a 200</option><option>200 a 300</option><option>300 a 400</option><option>Mais de 400</option>
+      </select>
+      <div class="err">Selecione uma opção</div>
+    </div>
+
+    <div class="field">
+      <label class="fl">Há quantos anos atua como representante?</label>
+      <select id="anos">
+        <option value="">Selecione...</option>
+        <option>Menos de 2 anos</option><option>2 a 5 anos</option><option>5 a 10 anos</option><option>10 a 20 anos</option><option>Mais de 20 anos</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label class="fl">Qual é o ticket médio dos pedidos dos seus clientes hoje?</label>
+      <div class="fh">Valor médio que um lojista compra de você por pedido</div>
+      <div class="opts-wrap" data-name="ticket_medio" data-type="single">
+        <label class="opt-item" onclick="optSel(this,'ticket_medio',false)"><div class="opt-box"></div><span>Até R$2.000</span></label><label class="opt-item" onclick="optSel(this,'ticket_medio',false)"><div class="opt-box"></div><span>R$2.000 a R$5.000</span></label><label class="opt-item" onclick="optSel(this,'ticket_medio',false)"><div class="opt-box"></div><span>R$5.000 a R$10.000</span></label><label class="opt-item" onclick="optSel(this,'ticket_medio',false)"><div class="opt-box"></div><span>R$10.000 a R$15.000</span></label><label class="opt-item" onclick="optSel(this,'ticket_medio',false)"><div class="opt-box"></div><span>Acima de R$15.000</span></label>
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="fl">Qual o perfil predominante do consumidor final dos seus clientes?</label>
+      <div class="fh">Quem compra nos lojistas da sua carteira</div>
+      <div class="opts-wrap" data-name="perfil_consumidor" data-type="single">
+        <label class="opt-item" onclick="optSel(this,'perfil_consumidor',false)"><div class="opt-box"></div><span>Classe C — foco em preço e praticidade</span></label><label class="opt-item" onclick="optSel(this,'perfil_consumidor',false)"><div class="opt-box"></div><span>Classe B/C — busca qualidade a preço acessível</span></label><label class="opt-item" onclick="optSel(this,'perfil_consumidor',false)"><div class="opt-box"></div><span>Classe B — design e funcionalidade importam</span></label><label class="opt-item" onclick="optSel(this,'perfil_consumidor',false)"><div class="opt-box"></div><span>Classe A/B — premium, preço não é barreira</span></label><label class="opt-item" onclick="optSel(this,'perfil_consumidor',false)"><div class="opt-box"></div><span>Misto — varia muito por lojista</span></label>
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="fl">Quais canais você atende? <span class="req">*</span></label>
+      <div class="fh">Selecione todos que se aplicam</div>
+      <div class="opts-wrap grid2" data-name="canais" data-type="multi">
+        <label class="opt-item" onclick="optSel(this,'canais',true)"><div class="opt-box"></div><span>Supermercados</span></label><label class="opt-item" onclick="optSel(this,'canais',true)"><div class="opt-box"></div><span>Utilidades domésticas</span></label><label class="opt-item" onclick="optSel(this,'canais',true)"><div class="opt-box"></div><span>Papelaria</span></label><label class="opt-item" onclick="optSel(this,'canais',true)"><div class="opt-box"></div><span>Presentes e decoração</span></label><label class="opt-item" onclick="optSel(this,'canais',true)"><div class="opt-box"></div><span>Home center</span></label><label class="opt-item" onclick="optSel(this,'canais',true)"><div class="opt-box"></div><span>Bazar e variedades</span></label><label class="opt-item" onclick="optSel(this,'canais',true)"><div class="opt-box"></div><span>E-commerce</span></label><label class="opt-item" onclick="optSel(this,'canais',true)"><div class="opt-box"></div><span>Atacarejo</span></label><label class="opt-item" onclick="optSel(this,'canais',true)"><div class="opt-box"></div><span>Outros</span></label>
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="fl">Você representa atualmente alguma marca de utilidades domésticas?</label>
+      <div class="opts-wrap" data-name="marcas" data-type="single">
+        <label class="opt-item" onclick="optSel(this,'marcas',false)"><div class="opt-box"></div><span>Não, seria a primeira</span></label><label class="opt-item" onclick="optSel(this,'marcas',false)"><div class="opt-box"></div><span>Sim — marca nacional</span></label><label class="opt-item" onclick="optSel(this,'marcas',false)"><div class="opt-box"></div><span>Sim — marca importada</span></label><label class="opt-item" onclick="optSel(this,'marcas',false)"><div class="opt-box"></div><span>Sim — mais de uma marca</span></label>
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="fl">Quais marcas representa hoje?</label>
+      <input type="text" id="quais_marcas" placeholder="Ex: Tramontina, Brinox, Wolff...">
+    </div>
+
+  </div>
+</div>
+
+<!-- ══ PARTE 2 — MERCADO ══ -->
+<div class="sec">
+  <div class="sh"><div class="sh-num">Parte 2 de 9</div><div class="sh-title">Potencial do Mercado</div><div class="sh-goal">Objetivo: medir o tamanho da oportunidade na sua região</div></div>
+  <div class="sb">
+
+    <div class="field">
+      <label class="fl">Como você avalia o mercado de utilidades domésticas na sua região?</label>
+      <div class="opts-wrap" data-name="mercado" data-type="single">
+        <label class="opt-item" onclick="optSel(this,'mercado',false)"><div class="opt-box"></div><span>Muito fraco</span></label><label class="opt-item" onclick="optSel(this,'mercado',false)"><div class="opt-box"></div><span>Fraco</span></label><label class="opt-item" onclick="optSel(this,'mercado',false)"><div class="opt-box"></div><span>Médio</span></label><label class="opt-item" onclick="optSel(this,'mercado',false)"><div class="opt-box"></div><span>Forte</span></label><label class="opt-item" onclick="optSel(this,'mercado',false)"><div class="opt-box"></div><span>Muito forte</span></label>
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="fl">Nos últimos 12 meses, o mercado na sua região:</label>
+      <div class="opts-wrap" data-name="tendencia" data-type="single">
+        <label class="opt-item" onclick="optSel(this,'tendencia',false)"><div class="opt-box"></div><span>Cresceu significativamente</span></label><label class="opt-item" onclick="optSel(this,'tendencia',false)"><div class="opt-box"></div><span>Cresceu levemente</span></label><label class="opt-item" onclick="optSel(this,'tendencia',false)"><div class="opt-box"></div><span>Ficou estável</span></label><label class="opt-item" onclick="optSel(this,'tendencia',false)"><div class="opt-box"></div><span>Caiu levemente</span></label><label class="opt-item" onclick="optSel(this,'tendencia',false)"><div class="opt-box"></div><span>Caiu significativamente</span></label>
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="fl">Quais categorias têm maior crescimento atualmente na sua região?</label>
+      <div class="fh">Selecione todas que percebe em crescimento</div>
+      <div class="opts-wrap grid2" data-name="categorias" data-type="multi">
+        <label class="opt-item" onclick="optSel(this,'categorias',true)"><div class="opt-box"></div><span>Vidro e organização</span></label><label class="opt-item" onclick="optSel(this,'categorias',true)"><div class="opt-box"></div><span>Utensílios de cozinha</span></label><label class="opt-item" onclick="optSel(this,'categorias',true)"><div class="opt-box"></div><span>Presentes premium</span></label><label class="opt-item" onclick="optSel(this,'categorias',true)"><div class="opt-box"></div><span>Mesa posta e drinkware</span></label><label class="opt-item" onclick="optSel(this,'categorias',true)"><div class="opt-box"></div><span>Banheiro e organização</span></label><label class="opt-item" onclick="optSel(this,'categorias',true)"><div class="opt-box"></div><span>Bolsas térmicas</span></label><label class="opt-item" onclick="optSel(this,'categorias',true)"><div class="opt-box"></div><span>Limpeza inteligente</span></label><label class="opt-item" onclick="optSel(this,'categorias',true)"><div class="opt-box"></div><span>Outras</span></label>
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="fl">Produtos de vidro + bambu já vendem bem na sua região?</label>
+      <div class="fh">Ex: potes de vidro com tampa de bambu, porta-temperos bambu+inox</div>
+      <div class="opts-wrap" data-name="vidro_bambu" data-type="single">
+        <label class="opt-item" onclick="optSel(this,'vidro_bambu',false)"><div class="opt-box"></div><span>Sim, vendem muito bem — clientes já conhecem</span></label><label class="opt-item" onclick="optSel(this,'vidro_bambu',false)"><div class="opt-box"></div><span>Sim, vendem, mas ainda pouco explorado</span></label><label class="opt-item" onclick="optSel(this,'vidro_bambu',false)"><div class="opt-box"></div><span>Ainda não tentei vender esse tipo</span></label><label class="opt-item" onclick="optSel(this,'vidro_bambu',false)"><div class="opt-box"></div><span>Não vende bem na minha região</span></label>
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="fl">Quando você vende mais na sua região?</label>
+      <div class="fh">Marque as épocas de maior volume de vendas</div>
+      <div class="opts-wrap grid2" data-name="sazonalidade" data-type="multi">
+        <label class="opt-item" onclick="optSel(this,'sazonalidade',true)"><div class="opt-box"></div><span>Janeiro–Fevereiro</span></label><label class="opt-item" onclick="optSel(this,'sazonalidade',true)"><div class="opt-box"></div><span>Março–Abril (Páscoa)</span></label><label class="opt-item" onclick="optSel(this,'sazonalidade',true)"><div class="opt-box"></div><span>Maio (Dia das Mães)</span></label><label class="opt-item" onclick="optSel(this,'sazonalidade',true)"><div class="opt-box"></div><span>Junho (Festas Juninas)</span></label><label class="opt-item" onclick="optSel(this,'sazonalidade',true)"><div class="opt-box"></div><span>Agosto (Dia dos Pais)</span></label><label class="opt-item" onclick="optSel(this,'sazonalidade',true)"><div class="opt-box"></div><span>Out–Nov (Black Friday)</span></label><label class="opt-item" onclick="optSel(this,'sazonalidade',true)"><div class="opt-box"></div><span>Dezembro (Natal)</span></label><label class="opt-item" onclick="optSel(this,'sazonalidade',true)"><div class="opt-box"></div><span>Volume constante o ano todo</span></label>
+      </div>
+    </div>
+
+
+    <div class="field">
+      <label class="fl">Seus clientes costumam ter gôndola de utensílios de cozinha?</label>
+      <div class="fh">Essencial saber antes de apresentar o catálogo</div>
+      <div class="opts-wrap" data-name="gondola_utensilios" data-type="single">
+        <label class="opt-item" onclick="optSel(this,'gondola_utensilios',false)"><div class="opt-box"></div><span>Sim, maioria tem — categoria ativa</span></label>
+        <label class="opt-item" onclick="optSel(this,'gondola_utensilios',false)"><div class="opt-box"></div><span>Alguns têm, mas não é padrão na carteira</span></label>
+        <label class="opt-item" onclick="optSel(this,'gondola_utensilios',false)"><div class="opt-box"></div><span>Poucos — categoria não é foco dos meus clientes</span></label>
+        <label class="opt-item" onclick="optSel(this,'gondola_utensilios',false)"><div class="opt-box"></div><span>Não sei / varia muito</span></label>
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="fl">Há interesse dos seus clientes em linhas Essential (produtos básicos a partir de R$9, MOQ 200–500, atacarejo/super)?</label>
+      <div class="fh">6 sub-linhas: Air Fryer, Despensa, Utensílios, Mesa, Limpeza e Banheiro</div>
+      <div class="opts-wrap" data-name="essential_interesse" data-type="single">
+        <label class="opt-item" onclick="optSel(this,'essential_interesse',false)"><div class="opt-box"></div><span>Sim — tenho clientes atacarejo/super que comprariam</span></label>
+        <label class="opt-item" onclick="optSel(this,'essential_interesse',false)"><div class="opt-box"></div><span>Talvez — precisaria ver as amostras e preços</span></label>
+        <label class="opt-item" onclick="optSel(this,'essential_interesse',false)"><div class="opt-box"></div><span>Não — minha carteira não tem perfil atacarejo</span></label>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══ PARTE 3 — LINHAS ══ -->
+<div class="sec">
+  <div class="sh"><div class="sh-num">Parte 3 de 9</div><div class="sh-title">Avaliação das Linhas Havalux</div><div class="sh-goal">Conheça cada linha e avalie de 1 a 5 estrelas o potencial na sua região</div></div>
+  <div class="sb">
+    <div class="info-box">★☆☆☆☆ Sem potencial &nbsp;·&nbsp; ★★★☆☆ Médio &nbsp;·&nbsp; ★★★★★ Altíssimo potencial</div>
+    <div class="line-card">
+  <div class="lc-head" style="background:#E1F5EE">
+    <div class="lc-imgs"><img src="https://images.tcdn.com.br/img/img_prod/949015/conjunto_potes_bahia_vidro_borossilicato_tampa_bambu_3_tamanhos_9399_1_6b62e54f5bff8a2c5bac6f32de76af01.jpg" class="lc-img-small" alt="Organize Premium" onerror="this.style.display='none'"><img src="https://images.tcdn.com.br/img/img_prod/949015/conjunto_potes_bahia_vidro_borossilicato_tampa_bambu_3_tamanhos_9399_2_6b62e54f5bff8a2c5bac6f32de76af01.jpg" class="lc-img-small" alt="Organize Premium" onerror="this.style.display='none'"><img src="https://images.tcdn.com.br/img/img_prod/949015/conjunto_potes_bahia_vidro_borossilicato_tampa_bambu_3_tamanhos_9399_3_6b62e54f5bff8a2c5bac6f32de76af01.jpg" class="lc-img-small" alt="Organize Premium" onerror="this.style.display='none'"></div>
+    <div class="lc-hb">
+      <div class="lc-name" style="color:#0F6E56">Organize Premium</div>
+      <div class="lc-sub">Vidro borossilicato + tampa bambu</div>
+      <div class="lc-meta" style="color:#0F6E56">12 SKUs · R$25–179</div>
+    </div>
+  </div>
+  <div class="lc-desc">Potes cilíndricos de vidro borossilicato com tampa de bambu natural hermética. Empilháveis, seguros no micro-ondas, forno e freezer. 8 tamanhos do mini 300ml ao 2000ml + bowls + kits presenteáveis em caixa.</div>
+  <div class="lc-canal">📍 Canal principal: Empório, presentes, e-commerce, loja gourmet</div>
+  <div class="lc-rate">
+    <div class="rl">Potencial na sua região:</div>
+    <div class="stars" data-id="org_premium">
+      <button class="star" data-v="1" onclick="rate(this)" type="button">★</button><button class="star" data-v="2" onclick="rate(this)" type="button">★</button><button class="star" data-v="3" onclick="rate(this)" type="button">★</button><button class="star" data-v="4" onclick="rate(this)" type="button">★</button><button class="star" data-v="5" onclick="rate(this)" type="button">★</button>
+    </div>
+    <div class="rh" id="rh-org_premium">Toque para avaliar</div>
+  </div>
+</div><div class="line-card">
+  <div class="lc-head" style="background:#E6F1FB">
+    <div class="lc-imgs"><img src="https://m.media-amazon.com/images/I/61F7dZCBLdL._AC_SL1500_.jpg" class="lc-img-small" alt="Organize Smart" onerror="this.style.display='none'"><img src="https://m.media-amazon.com/images/I/71Y+qX9ZYVL._AC_SL1500_.jpg" class="lc-img-small" alt="Organize Smart" onerror="this.style.display='none'"><img src="https://m.media-amazon.com/images/I/71j0cxfeFRL._AC_SL1500_.jpg" class="lc-img-small" alt="Organize Smart" onerror="this.style.display='none'"></div>
+    <div class="lc-hb">
+      <div class="lc-name" style="color:#185FA5">Organize Smart</div>
+      <div class="lc-sub">Plástico premium transparente BPA-Free</div>
+      <div class="lc-meta" style="color:#185FA5">5 SKUs · R$19–69</div>
+    </div>
+  </div>
+  <div class="lc-desc">Herméticos de PP BPA-Free com tampa de 4 travas laterais, transparentes e empilháveis. O cliente vê o conteúdo sem abrir. 4 tamanhos + kit 4 peças para exposição em gondola.</div>
+  <div class="lc-canal">📍 Canal principal: Supermercado, bazar, utilidades, e-commerce</div>
+  <div class="lc-rate">
+    <div class="rl">Potencial na sua região:</div>
+    <div class="stars" data-id="org_smart">
+      <button class="star" data-v="1" onclick="rate(this)" type="button">★</button><button class="star" data-v="2" onclick="rate(this)" type="button">★</button><button class="star" data-v="3" onclick="rate(this)" type="button">★</button><button class="star" data-v="4" onclick="rate(this)" type="button">★</button><button class="star" data-v="5" onclick="rate(this)" type="button">★</button>
+    </div>
+    <div class="rh" id="rh-org_smart">Toque para avaliar</div>
+  </div>
+</div><div class="line-card">
+  <div class="lc-head" style="background:#FFF3DC">
+    <div class="lc-imgs"><img src="https://images.tcdn.com.br/img/img_prod/765597/porta_temperos_em_inox_giratorio_360_graus_e_16_pecas_casita_5695_1_6b62e54f5bff8a2c5bac6f32de76af01.jpg" class="lc-img-small" alt="Spice" onerror="this.style.display='none'"><img src="https://m.media-amazon.com/images/I/71RwIuU6P-L._AC_SL1500_.jpg" class="lc-img-small" alt="Spice" onerror="this.style.display='none'"><img src="https://m.media-amazon.com/images/I/71YNqQ+9SQL._AC_SL1500_.jpg" class="lc-img-small" alt="Spice" onerror="this.style.display='none'"></div>
+    <div class="lc-hb">
+      <div class="lc-name" style="color:#BA7517">Spice</div>
+      <div class="lc-sub">Porta-temperos vidro · magnético · giratório 360°</div>
+      <div class="lc-meta" style="color:#BA7517">6 SKUs · R$39–149</div>
+    </div>
+  </div>
+  <div class="lc-desc">Três tecnologias: Kit vidro+bambu (4 ou 6 potes + bandeja), Kit magnético inox (prende na parede sem furos, 6 ou 9 potes) e Carrossel giratório 360° com 12 potes. Três faixas de preço.</div>
+  <div class="lc-canal">📍 Canal principal: Utilidades, e-commerce, presentes, supermercado</div>
+  <div class="lc-rate">
+    <div class="rl">Potencial na sua região:</div>
+    <div class="stars" data-id="spice">
+      <button class="star" data-v="1" onclick="rate(this)" type="button">★</button><button class="star" data-v="2" onclick="rate(this)" type="button">★</button><button class="star" data-v="3" onclick="rate(this)" type="button">★</button><button class="star" data-v="4" onclick="rate(this)" type="button">★</button><button class="star" data-v="5" onclick="rate(this)" type="button">★</button>
+    </div>
+    <div class="rh" id="rh-spice">Toque para avaliar</div>
+  </div>
+</div><div class="line-card">
+  <div class="lc-head" style="background:#EEEDFE">
+    <div class="lc-imgs"><img src="https://images.tcdn.com.br/img/img_prod/702756/conjunto_de_organizadores_modulares_coza_new_retro_5_pecas_9182_1_6b62e54f5bff8a2c5bac6f32de76af01.jpg" class="lc-img-small" alt="Storage" onerror="this.style.display='none'"><img src="https://images.tcdn.com.br/img/img_prod/702756/conjunto_de_organizadores_modulares_coza_new_retro_5_pecas_9182_2_6b62e54f5bff8a2c5bac6f32de76af01.jpg" class="lc-img-small" alt="Storage" onerror="this.style.display='none'"><img src="https://images.tcdn.com.br/img/img_prod/702756/conjunto_de_organizadores_modulares_coza_new_retro_5_pecas_9182_3_6b62e54f5bff8a2c5bac6f32de76af01.jpg" class="lc-img-small" alt="Storage" onerror="this.style.display='none'"></div>
+    <div class="lc-hb">
+      <div class="lc-name" style="color:#534AB7">Storage</div>
+      <div class="lc-sub">Organizadores de cozinha · sem furos · sem reforma</div>
+      <div class="lc-meta" style="color:#534AB7">4 SKUs · R$19–59</div>
+    </div>
+  </div>
+  <div class="lc-desc">Organizador de talheres extensível (28–42cm), cesta de parede por ventosa, suporte inox adesivo e porta-ovos 32 compartimentos. Instalação sem obra, sem furos.</div>
+  <div class="lc-canal">📍 Canal principal: Supermercado, bazar, utilidades</div>
+  <div class="lc-rate">
+    <div class="rl">Potencial na sua região:</div>
+    <div class="stars" data-id="storage">
+      <button class="star" data-v="1" onclick="rate(this)" type="button">★</button><button class="star" data-v="2" onclick="rate(this)" type="button">★</button><button class="star" data-v="3" onclick="rate(this)" type="button">★</button><button class="star" data-v="4" onclick="rate(this)" type="button">★</button><button class="star" data-v="5" onclick="rate(this)" type="button">★</button>
+    </div>
+    <div class="rh" id="rh-storage">Toque para avaliar</div>
+  </div>
+</div><div class="line-card">
+  <div class="lc-head" style="background:#FAECE7">
+    <div class="lc-imgs"><img src="https://m.media-amazon.com/images/I/61kV5YRMJAL._AC_SL1000_.jpg" class="lc-img-small" alt="Chef Silicone" onerror="this.style.display='none'"><img src="https://m.media-amazon.com/images/I/61kV5YRMJAL._AC_SL1000_.jpg" class="lc-img-small" alt="Chef Silicone" onerror="this.style.display='none'"><img src="https://m.media-amazon.com/images/I/61kV5YRMJAL._AC_SL1000_.jpg" class="lc-img-small" alt="Chef Silicone" onerror="this.style.display='none'"></div>
+    <div class="lc-hb">
+      <div class="lc-name" style="color:#C8401A">Chef Silicone</div>
+      <div class="lc-sub">Utensílios silicone 230°C + kits cozinha · cabo madeira</div>
+      <div class="lc-meta" style="color:#C8401A">16 SKUs · R$15–199</div>
+    </div>
+  </div>
+  <div class="lc-desc">10 utensílios avulsos em blister card + kits 3, 5, 8pc e kits cozinha completos 12, 19 e 25 peças com facas inox, suporte giratório e detalhe cobre rosé.</div>
+  <div class="lc-canal">📍 Canal principal: Bazar, super, farmácia, utilidades, e-commerce</div>
+  <div class="lc-rate">
+    <div class="rl">Potencial na sua região:</div>
+    <div class="stars" data-id="chef_sil">
+      <button class="star" data-v="1" onclick="rate(this)" type="button">★</button><button class="star" data-v="2" onclick="rate(this)" type="button">★</button><button class="star" data-v="3" onclick="rate(this)" type="button">★</button><button class="star" data-v="4" onclick="rate(this)" type="button">★</button><button class="star" data-v="5" onclick="rate(this)" type="button">★</button>
+    </div>
+    <div class="rh" id="rh-chef_sil">Toque para avaliar</div>
+  </div>
+</div><div class="line-card">
+  <div class="lc-head" style="background:#F1EFE8">
+    <div class="lc-imgs"><img src="https://a-static.mlcdn.com.br/450x450/kit-utensilios-cozinha-aco-inox-premium-e-suporte-parede-7-pecas-mimo-style/mstore/9b6c3ab59bff11eca0784201ac185073/1.jpeg" class="lc-img-small" alt="Chef Pro 304" onerror="this.style.display='none'"><img src="https://m.media-amazon.com/images/I/71mOBPcRPZL._AC_SL1500_.jpg" class="lc-img-small" alt="Chef Pro 304" onerror="this.style.display='none'"><img src="https://m.media-amazon.com/images/I/71mOBPcRPZL._AC_SL1500_.jpg" class="lc-img-small" alt="Chef Pro 304" onerror="this.style.display='none'"></div>
+    <div class="lc-hb">
+      <div class="lc-name" style="color:#5F5E5A">Chef Pro 304</div>
+      <div class="lc-sub">100% Aço Inox 304 · Acabamento espelhado</div>
+      <div class="lc-meta" style="color:#5F5E5A">13 SKUs · R$19–189</div>
+    </div>
+  </div>
+  <div class="lc-desc">Linha profissional 100% inox 304 espelhado. 10 utensílios avulsos em blister + kits 3, 5 e 8pc com gift box premium. Sem silicone, sem plástico.</div>
+  <div class="lc-canal">📍 Canal principal: Utilidades, presentes, corporativo, e-commerce</div>
+  <div class="lc-rate">
+    <div class="rl">Potencial na sua região:</div>
+    <div class="stars" data-id="chef_pro">
+      <button class="star" data-v="1" onclick="rate(this)" type="button">★</button><button class="star" data-v="2" onclick="rate(this)" type="button">★</button><button class="star" data-v="3" onclick="rate(this)" type="button">★</button><button class="star" data-v="4" onclick="rate(this)" type="button">★</button><button class="star" data-v="5" onclick="rate(this)" type="button">★</button>
+    </div>
+    <div class="rh" id="rh-chef_pro">Toque para avaliar</div>
+  </div>
+</div><div class="line-card">
+  <div class="lc-head" style="background:#ECEAE4">
+    <div class="lc-imgs"><img src="https://a-static.mlcdn.com.br/450x450/conjunto-de-talheres-dourado-24-pecas-dusseldorf-premium-alfashop/alfashop/12350/1.jpeg" class="lc-img-small" alt="Signature" onerror="this.style.display='none'"><img src="https://a-static.mlcdn.com.br/450x450/conjunto-de-talheres-dourado-24-pecas-dusseldorf-premium-alfashop/alfashop/12350/2.jpeg" class="lc-img-small" alt="Signature" onerror="this.style.display='none'"><img src="https://m.media-amazon.com/images/I/71nZnRqzXtL._AC_SL1500_.jpg" class="lc-img-small" alt="Signature" onerror="this.style.display='none'"></div>
+    <div class="lc-hb">
+      <div class="lc-name" style="color:#2A2A28">Signature</div>
+      <div class="lc-sub">Talheres inox 18/10 · Clássico ao PVD premium</div>
+      <div class="lc-meta" style="color:#2A2A28">10 SKUs · R$49–279</div>
+    </div>
+  </div>
+  <div class="lc-desc">Do kit básico 12pc ao conjunto 24pc em PVD Champagne Gold, Gold e Preto Fosco. Caixas presente para todos os kits. Ideal para enxoval, corporativo e mesa premium.</div>
+  <div class="lc-canal">📍 Canal principal: Enxovais, presentes, corporativo, e-commerce</div>
+  <div class="lc-rate">
+    <div class="rl">Potencial na sua região:</div>
+    <div class="stars" data-id="signature">
+      <button class="star" data-v="1" onclick="rate(this)" type="button">★</button><button class="star" data-v="2" onclick="rate(this)" type="button">★</button><button class="star" data-v="3" onclick="rate(this)" type="button">★</button><button class="star" data-v="4" onclick="rate(this)" type="button">★</button><button class="star" data-v="5" onclick="rate(this)" type="button">★</button>
+    </div>
+    <div class="rh" id="rh-signature">Toque para avaliar</div>
+  </div>
+</div><div class="line-card">
+  <div class="lc-head" style="background:#E6F1FB">
+    <div class="lc-imgs"><img src="https://i0.wp.com/marcelinhosdecor.com.br/wp-content/uploads/2020/05/mesa-posta-elegante-1024x563.jpg" class="lc-img-small" alt="Table" onerror="this.style.display='none'"><img src="https://i0.wp.com/marcelinhosdecor.com.br/wp-content/uploads/2020/05/mesa-posta-elegante-1024x563.jpg" class="lc-img-small" alt="Table" onerror="this.style.display='none'"><img src="https://i0.wp.com/marcelinhosdecor.com.br/wp-content/uploads/2020/05/mesa-posta-elegante-1024x563.jpg" class="lc-img-small" alt="Table" onerror="this.style.display='none'"></div>
+    <div class="lc-hb">
+      <div class="lc-name" style="color:#0C447C">Table</div>
+      <div class="lc-sub">Vidro borossilicato dupla parede · Jarras · Kit Café</div>
+      <div class="lc-meta" style="color:#0C447C">17 SKUs · R$29–219</div>
+    </div>
+  </div>
+  <div class="lc-desc">Copos com efeito "flutuante" (dupla parede). Espresso 80ml a copos 450ml, canecas, jarras 1–1,8L com bambu, Kit Café Premium e garrafas com infusor inox removível.</div>
+  <div class="lc-canal">📍 Canal principal: E-commerce, presentes, café especial, utilidades</div>
+  <div class="lc-rate">
+    <div class="rl">Potencial na sua região:</div>
+    <div class="stars" data-id="table">
+      <button class="star" data-v="1" onclick="rate(this)" type="button">★</button><button class="star" data-v="2" onclick="rate(this)" type="button">★</button><button class="star" data-v="3" onclick="rate(this)" type="button">★</button><button class="star" data-v="4" onclick="rate(this)" type="button">★</button><button class="star" data-v="5" onclick="rate(this)" type="button">★</button>
+    </div>
+    <div class="rh" id="rh-table">Toque para avaliar</div>
+  </div>
+</div><div class="line-card">
+  <div class="lc-head" style="background:#FEF0EC">
+    <div class="lc-imgs"><img src="https://m.media-amazon.com/images/I/71kxqLJ7SeL._AC_SL1500_.jpg" class="lc-img-small" alt="Bake" onerror="this.style.display='none'"><img src="https://m.media-amazon.com/images/I/71kxqLJ7SeL._AC_SL1500_.jpg" class="lc-img-small" alt="Bake" onerror="this.style.display='none'"><img src="https://m.media-amazon.com/images/I/71kxqLJ7SeL._AC_SL1500_.jpg" class="lc-img-small" alt="Bake" onerror="this.style.display='none'"></div>
+    <div class="lc-hb">
+      <div class="lc-name" style="color:#993C1D">Bake</div>
+      <div class="lc-sub">Vidro borossilicato · Forno · Mesa · Geladeira</div>
+      <div class="lc-meta" style="color:#993C1D">6 SKUs · R$59–159</div>
+    </div>
+  </div>
+  <div class="lc-desc">Assadeiras e bowls de borossilicato que vão do forno à mesa sem choque térmico. Retangular 1,5L, oval 2,4L, alta 3L e travessa com tampa bambu (2L) — do forno à geladeira à mesa com a mesma peça.</div>
+  <div class="lc-canal">📍 Canal principal: Utilidades, presentes, e-commerce, lojas gourmet</div>
+  <div class="lc-rate">
+    <div class="rl">Potencial na sua região:</div>
+    <div class="stars" data-id="bake">
+      <button class="star" data-v="1" onclick="rate(this)" type="button">★</button><button class="star" data-v="2" onclick="rate(this)" type="button">★</button><button class="star" data-v="3" onclick="rate(this)" type="button">★</button><button class="star" data-v="4" onclick="rate(this)" type="button">★</button><button class="star" data-v="5" onclick="rate(this)" type="button">★</button>
+    </div>
+    <div class="rh" id="rh-bake">Toque para avaliar</div>
+  </div>
+</div><div class="line-card">
+  <div class="lc-head" style="background:#EEF9EE">
+    <div class="lc-imgs"><img src="https://m.media-amazon.com/images/I/61Y4pK1PPUL._AC_SL1500_.jpg" class="lc-img-small" alt="Bath" onerror="this.style.display='none'"><img src="https://m.media-amazon.com/images/I/61Y4pK1PPUL._AC_SL1500_.jpg" class="lc-img-small" alt="Bath" onerror="this.style.display='none'"><img src="https://m.media-amazon.com/images/I/61Y4pK1PPUL._AC_SL1500_.jpg" class="lc-img-small" alt="Bath" onerror="this.style.display='none'"></div>
+    <div class="lc-hb">
+      <div class="lc-name" style="color:#2E7D32">Bath</div>
+      <div class="lc-sub">Kits de banheiro · Inox 304 · Bambu · PP Fosco</div>
+      <div class="lc-meta" style="color:#2E7D32">6 SKUs · R$29–189</div>
+    </div>
+  </div>
+  <div class="lc-desc">Kit PP+Bambu 6pc (entrada), Kit Inox 304 4pc sem furos (adesivo) e Kit Preto Fosco+Bambu 6pc (premium). Mais porta-papel, toalheiro adesivo e tapete silicone.</div>
+  <div class="lc-canal">📍 Canal principal: Utilidades, presentes, e-commerce, home center</div>
+  <div class="lc-rate">
+    <div class="rl">Potencial na sua região:</div>
+    <div class="stars" data-id="bath">
+      <button class="star" data-v="1" onclick="rate(this)" type="button">★</button><button class="star" data-v="2" onclick="rate(this)" type="button">★</button><button class="star" data-v="3" onclick="rate(this)" type="button">★</button><button class="star" data-v="4" onclick="rate(this)" type="button">★</button><button class="star" data-v="5" onclick="rate(this)" type="button">★</button>
+    </div>
+    <div class="rh" id="rh-bath">Toque para avaliar</div>
+  </div>
+</div><div class="line-card">
+  <div class="lc-head" style="background:#F0F8ED">
+    <div class="lc-imgs"><img src="https://m.media-amazon.com/images/I/617T3YWPGPL._AC_SL1500_.jpg" class="lc-img-small" alt="Smart Clean" onerror="this.style.display='none'"><img src="https://m.media-amazon.com/images/I/617T3YWPGPL._AC_SL1500_.jpg" class="lc-img-small" alt="Smart Clean" onerror="this.style.display='none'"><img src="https://m.media-amazon.com/images/I/617T3YWPGPL._AC_SL1500_.jpg" class="lc-img-small" alt="Smart Clean" onerror="this.style.display='none'"></div>
+    <div class="lc-hb">
+      <div class="lc-name" style="color:#3B6D11">Smart Clean</div>
+      <div class="lc-sub">Lixeiras inteligentes · Mop spray · Escova elétrica</div>
+      <div class="lc-meta" style="color:#3B6D11">5 SKUs · R$89–349</div>
+    </div>
+  </div>
+  <div class="lc-desc">Lixeiras com sensor infravermelho automático (10L, 14L e 20L) em inox 304. Mop spray 360° com reservatório integrado 350ml. Escova elétrica 3 cabeças, USB-C, IPX6.</div>
+  <div class="lc-canal">📍 Canal principal: Utilidades, e-commerce, home center</div>
+  <div class="lc-rate">
+    <div class="rl">Potencial na sua região:</div>
+    <div class="stars" data-id="smart_clean">
+      <button class="star" data-v="1" onclick="rate(this)" type="button">★</button><button class="star" data-v="2" onclick="rate(this)" type="button">★</button><button class="star" data-v="3" onclick="rate(this)" type="button">★</button><button class="star" data-v="4" onclick="rate(this)" type="button">★</button><button class="star" data-v="5" onclick="rate(this)" type="button">★</button>
+    </div>
+    <div class="rh" id="rh-smart_clean">Toque para avaliar</div>
+  </div>
+</div><div class="line-card">
+  <div class="lc-head" style="background:#FBE8F2">
+    <div class="lc-imgs"><img src="https://a-static.mlcdn.com.br/450x450/conjunto-bolsa-termica-com-marmita-e-garrafinha/loja-da-bellinha/12345/1.jpeg" class="lc-img-small" alt="Go" onerror="this.style.display='none'"><img src="https://a-static.mlcdn.com.br/450x450/conjunto-bolsa-termica-com-marmita-e-garrafinha/loja-da-bellinha/12345/2.jpeg" class="lc-img-small" alt="Go" onerror="this.style.display='none'"><img src="https://a-static.mlcdn.com.br/450x450/conjunto-bolsa-termica-com-marmita-e-garrafinha/loja-da-bellinha/12345/3.jpeg" class="lc-img-small" alt="Go" onerror="this.style.display='none'"></div>
+    <div class="lc-hb">
+      <div class="lc-name" style="color:#C0457A">Go</div>
+      <div class="lc-sub">Bolsas térmicas Oxford 600D · Isolamento PEVA</div>
+      <div class="lc-meta" style="color:#C0457A">4 SKUs · R$49–129</div>
+    </div>
+  </div>
+  <div class="lc-desc">4 silhuetas em Oxford 600D + PEVA: Tote 15L, Mochila 20L, Família 30L e Office 8L. Zíper duplo, alça reforçada. Personalização silk screen para corporativo.</div>
+  <div class="lc-canal">📍 Canal principal: Supermercado, bazar, corporativo, e-commerce</div>
+  <div class="lc-rate">
+    <div class="rl">Potencial na sua região:</div>
+    <div class="stars" data-id="go">
+      <button class="star" data-v="1" onclick="rate(this)" type="button">★</button><button class="star" data-v="2" onclick="rate(this)" type="button">★</button><button class="star" data-v="3" onclick="rate(this)" type="button">★</button><button class="star" data-v="4" onclick="rate(this)" type="button">★</button><button class="star" data-v="5" onclick="rate(this)" type="button">★</button>
+    </div>
+    <div class="rh" id="rh-go">Toque para avaliar</div>
+  </div>
+</div>
+  </div>
+</div>
+
+<!-- ══ PARTE 4 — PRIORIZAÇÃO DE LINHAS ══ -->
+<div class="sec">
+  <div class="sh"><div class="sh-num">Parte 4 de 9</div><div class="sh-title">Priorização de Linhas</div><div class="sh-goal">Objetivo: entender quais linhas devem entrar primeiro no seu mercado</div></div>
+  <div class="sb">
+
+    <div class="field">
+      <label class="fl">Se a Havalux lançasse apenas 3 linhas inicialmente, quais seriam as suas escolhas para a sua carteira?</label>
+      <div class="fh">Ordene por prioridade — 1ª é a mais urgente para o seu mercado</div>
+      <div class="pri-wrap">
+        <div class="pri-item"><span class="pri-label">🥇 1ª prioridade</span>
+          <select id="pri1"><option value="">Selecione...</option><option>Organize Premium (vidro+bambu)</option><option>Organize Smart (PP hermético)</option><option>Spice (porta-temperos)</option><option>Storage (organização sem furos)</option><option>Chef Silicone (utensílios 230°C)</option><option>Chef Pro 304 (inox 304)</option><option>Signature (talheres PVD)</option><option>Table (dupla parede/drinkware)</option><option>Bake (borossilicato forno)</option><option>Bath (banheiro sem furos)</option><option>Smart Clean (lixeira sensor)</option><option>Go (bolsas térmicas)</option><option>Essential (entrada atacarejo)</option></select>
+        </div>
+        <div class="pri-item"><span class="pri-label">🥈 2ª prioridade</span>
+          <select id="pri2"><option value="">Selecione...</option><option>Organize Premium (vidro+bambu)</option><option>Organize Smart (PP hermético)</option><option>Spice (porta-temperos)</option><option>Storage (organização sem furos)</option><option>Chef Silicone (utensílios 230°C)</option><option>Chef Pro 304 (inox 304)</option><option>Signature (talheres PVD)</option><option>Table (dupla parede/drinkware)</option><option>Bake (borossilicato forno)</option><option>Bath (banheiro sem furos)</option><option>Smart Clean (lixeira sensor)</option><option>Go (bolsas térmicas)</option><option>Essential (entrada atacarejo)</option></select>
+        </div>
+        <div class="pri-item"><span class="pri-label">🥉 3ª prioridade</span>
+          <select id="pri3"><option value="">Selecione...</option><option>Organize Premium (vidro+bambu)</option><option>Organize Smart (PP hermético)</option><option>Spice (porta-temperos)</option><option>Storage (organização sem furos)</option><option>Chef Silicone (utensílios 230°C)</option><option>Chef Pro 304 (inox 304)</option><option>Signature (talheres PVD)</option><option>Table (dupla parede/drinkware)</option><option>Bake (borossilicato forno)</option><option>Bath (banheiro sem furos)</option><option>Smart Clean (lixeira sensor)</option><option>Go (bolsas térmicas)</option><option>Essential (entrada atacarejo)</option></select>
+        </div>
+      </div>
+    </div>
+
+    <div class="field" style="margin-top:16px">
+      <label class="fl">Por que essas linhas? O que fez você priorizá-las?</label>
+      <div class="fh">Conta muito mais do que os números — pode ser curto</div>
+      <textarea id="motivo_sku" placeholder="Ex: Chef Silicone abre porta em qualquer bazar, Spice não tem concorrência aqui, Signature é o que mais vejo bazar premium pedir..."></textarea>
+    </div>
+
+    <div class="field" style="margin-top:16px">
+      <label class="fl">Qual linha você deixaria pra uma segunda fase? Por quê?</label>
+      <div class="fh">Opcional — ajuda a entender quais linhas têm mais resistência</div>
+      <textarea id="linha_fase2" placeholder="Ex: Bake ficaria pra depois pois meus clientes não têm público gourmet forte ainda..."></textarea>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ══ PARTE 5 — PREÇO E POSICIONAMENTO ══ -->
+<div class="sec">
+  <div class="sh"><div class="sh-num">Parte 5 de 9</div><div class="sh-title">Preço e Posicionamento</div><div class="sh-goal">Objetivo: calibrar o posicionamento real do mercado</div></div>
+  <div class="sb">
+
+    <div class="field">
+      <label class="fl">Como a Havalux deveria ser posicionada?</label>
+      <div class="opts-wrap" data-name="posicionamento" data-type="single">
+        <label class="opt-item" onclick="optSel(this,'posicionamento',false)"><div class="opt-box"></div><span>Entrada — foco em preço e volume (não importa qualidade)</span></label><label class="opt-item" onclick="optSel(this,'posicionamento',false)"><div class="opt-box"></div><span>Médio mercado — equilíbrio preço/qualidade</span></label><label class="opt-item" onclick="optSel(this,'posicionamento',false)"><div class="opt-box"></div><span>Premium acessível — qualidade percebida alta, preço competitivo</span></label><label class="opt-item" onclick="optSel(this,'posicionamento',false)"><div class="opt-box"></div><span>Premium — para quem busca o melhor</span></label><label class="opt-item" onclick="optSel(this,'posicionamento',false)"><div class="opt-box"></div><span>Luxo — nicho de alto valor</span></label>
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="fl">Qual marca do mercado mais se aproxima do posicionamento ideal para a Havalux?</label>
+      <div class="opts-wrap grid2" data-name="referencia" data-type="single">
+        <label class="opt-item" onclick="optSel(this,'referencia',false)"><div class="opt-box"></div><span>Tramontina</span></label><label class="opt-item" onclick="optSel(this,'referencia',false)"><div class="opt-box"></div><span>Brinox</span></label><label class="opt-item" onclick="optSel(this,'referencia',false)"><div class="opt-box"></div><span>Wolff</span></label><label class="opt-item" onclick="optSel(this,'referencia',false)"><div class="opt-box"></div><span>Lyor</span></label><label class="opt-item" onclick="optSel(this,'referencia',false)"><div class="opt-box"></div><span>Hauskraft</span></label><label class="opt-item" onclick="optSel(this,'referencia',false)"><div class="opt-box"></div><span>Mimo Style</span></label><label class="opt-item" onclick="optSel(this,'referencia',false)"><div class="opt-box"></div><span>Original</span></label><label class="opt-item" onclick="optSel(this,'referencia',false)"><div class="opt-box"></div><span>Outra</span></label>
+      </div>
+    </div>
+
+    <div class="field" style="margin-top:14px">
+      <label class="fl">Faixa de preço de varejo ideal por produto</label>
+      <div class="fh">Selecione o preço que seu lojista conseguiria vender com boa margem</div>
+
+      <div class="pb"><div class="pb-prod">🫙 Pote Hermético 500ml (vidro + bambu, avulso)</div><div class="pills" data-name="preco_pote"><label class="pill-opt" onclick="pillSel(this,'preco_pote')">Até R$29,90</label><label class="pill-opt" onclick="pillSel(this,'preco_pote')">R$34,90</label><label class="pill-opt" onclick="pillSel(this,'preco_pote')">R$39,90</label><label class="pill-opt" onclick="pillSel(this,'preco_pote')">R$49,90+</label><label class="pill-opt" onclick="pillSel(this,'preco_pote')">Não sei</label></div></div>
+      <div class="pb"><div class="pb-prod">🫙×5 Kit 5 Potes Vidro + Bambu</div><div class="pills" data-name="preco_kit5"><label class="pill-opt" onclick="pillSel(this,'preco_kit5')">Até R$99,90</label><label class="pill-opt" onclick="pillSel(this,'preco_kit5')">R$129,90</label><label class="pill-opt" onclick="pillSel(this,'preco_kit5')">R$159,90</label><label class="pill-opt" onclick="pillSel(this,'preco_kit5')">R$179,90+</label><label class="pill-opt" onclick="pillSel(this,'preco_kit5')">Não sei</label></div></div>
+      <div class="pb"><div class="pb-prod">🌶️ Porta-Temperos Giratório 360° (12 potes)</div><div class="pills" data-name="preco_spice"><label class="pill-opt" onclick="pillSel(this,'preco_spice')">Até R$69,90</label><label class="pill-opt" onclick="pillSel(this,'preco_spice')">R$89,90</label><label class="pill-opt" onclick="pillSel(this,'preco_spice')">R$109,90</label><label class="pill-opt" onclick="pillSel(this,'preco_spice')">R$129,90+</label><label class="pill-opt" onclick="pillSel(this,'preco_spice')">Não sei</label></div></div>
+      <div class="pb"><div class="pb-prod">🍳 Kit Cozinha 19 Peças (facas + silicone + suporte)</div><div class="pills" data-name="preco_kit19"><label class="pill-opt" onclick="pillSel(this,'preco_kit19')">Até R$99,90</label><label class="pill-opt" onclick="pillSel(this,'preco_kit19')">R$129,90</label><label class="pill-opt" onclick="pillSel(this,'preco_kit19')">R$159,90</label><label class="pill-opt" onclick="pillSel(this,'preco_kit19')">R$199,90+</label><label class="pill-opt" onclick="pillSel(this,'preco_kit19')">Não sei</label></div></div>
+      <div class="pb"><div class="pb-prod">⚗️ Jarra Borossilicato 1,5L + Tampa Bambu</div><div class="pills" data-name="preco_jarra"><label class="pill-opt" onclick="pillSel(this,'preco_jarra')">Até R$79,90</label><label class="pill-opt" onclick="pillSel(this,'preco_jarra')">R$99,90</label><label class="pill-opt" onclick="pillSel(this,'preco_jarra')">R$129,90</label><label class="pill-opt" onclick="pillSel(this,'preco_jarra')">R$149,90+</label><label class="pill-opt" onclick="pillSel(this,'preco_jarra')">Não sei</label></div></div>
+      <div class="pb"><div class="pb-prod">☕ Kit Café Premium (espresso + canecas + jarra)</div><div class="pills" data-name="preco_cafe"><label class="pill-opt" onclick="pillSel(this,'preco_cafe')">Até R$99,90</label><label class="pill-opt" onclick="pillSel(this,'preco_cafe')">R$129,90</label><label class="pill-opt" onclick="pillSel(this,'preco_cafe')">R$159,90</label><label class="pill-opt" onclick="pillSel(this,'preco_cafe')">R$199,90+</label><label class="pill-opt" onclick="pillSel(this,'preco_cafe')">Não sei</label></div></div>
+      <div class="pb"><div class="pb-prod">🥂 Kit Talheres 24pc Champagne Gold PVD</div><div class="pills" data-name="preco_talher"><label class="pill-opt" onclick="pillSel(this,'preco_talher')">Até R$99,90</label><label class="pill-opt" onclick="pillSel(this,'preco_talher')">R$149,90</label><label class="pill-opt" onclick="pillSel(this,'preco_talher')">R$199,90</label><label class="pill-opt" onclick="pillSel(this,'preco_talher')">R$249,90+</label><label class="pill-opt" onclick="pillSel(this,'preco_talher')">Não sei</label></div></div>
+      <div class="pb"><div class="pb-prod">🚿 Kit Banheiro Inox 4 Peças (sem furos, adesivo)</div><div class="pills" data-name="preco_bath"><label class="pill-opt" onclick="pillSel(this,'preco_bath')">Até R$69,90</label><label class="pill-opt" onclick="pillSel(this,'preco_bath')">R$89,90</label><label class="pill-opt" onclick="pillSel(this,'preco_bath')">R$109,90</label><label class="pill-opt" onclick="pillSel(this,'preco_bath')">R$129,90+</label><label class="pill-opt" onclick="pillSel(this,'preco_bath')">Não sei</label></div></div>
+    </div>
+
+    <div class="field">
+      <label class="fl">Como avalia a qualidade percebida ideal para a marca?</label>
+      <div class="opts-wrap" data-name="qualidade" data-type="single">
+        <label class="opt-item" onclick="optSel(this,'qualidade',false)"><div class="opt-box"></div><span>Entrada — o importante é o preço</span></label><label class="opt-item" onclick="optSel(this,'qualidade',false)"><div class="opt-box"></div><span>Intermediária — boa relação custo-benefício</span></label><label class="opt-item" onclick="optSel(this,'qualidade',false)"><div class="opt-box"></div><span>Premium acessível — bonito e de qualidade, mas acessível</span></label><label class="opt-item" onclick="optSel(this,'qualidade',false)"><div class="opt-box"></div><span>Premium — qualidade acima de tudo</span></label>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══ PARTE 6 — ESTRATÉGIA COMERCIAL ══ -->
+<div class="sec">
+  <div class="sh"><div class="sh-num">Parte 6 de 9</div><div class="sh-title">Estratégia Comercial</div><div class="sh-goal">Objetivo: construir o plano comercial junto com você</div></div>
+  <div class="sb">
+
+    <div class="field">
+      <label class="fl">Qual valor mínimo de pedido facilita a entrada em novos clientes?</label>
+      <div class="opts-wrap" data-name="pedido_min" data-type="single">
+        <label class="opt-item" onclick="optSel(this,'pedido_min',false)"><div class="opt-box"></div><span>Até R$1.000</span></label><label class="opt-item" onclick="optSel(this,'pedido_min',false)"><div class="opt-box"></div><span>R$1.000 a R$2.000</span></label><label class="opt-item" onclick="optSel(this,'pedido_min',false)"><div class="opt-box"></div><span>R$2.000 a R$3.000</span></label><label class="opt-item" onclick="optSel(this,'pedido_min',false)"><div class="opt-box"></div><span>R$3.000 a R$4.000</span></label><label class="opt-item" onclick="optSel(this,'pedido_min',false)"><div class="opt-box"></div><span>Acima de R$5.000</span></label>
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="fl">Qual comissão você considera adequada para a Havalux?</label>
+      <div class="opts-wrap" data-name="comissao" data-type="single">
+        <label class="opt-item" onclick="optSel(this,'comissao',false)"><div class="opt-box"></div><span>Até 5%</span></label><label class="opt-item" onclick="optSel(this,'comissao',false)"><div class="opt-box"></div><span>5% a 7%</span></label><label class="opt-item" onclick="optSel(this,'comissao',false)"><div class="opt-box"></div><span>7% a 9%</span></label><label class="opt-item" onclick="optSel(this,'comissao',false)"><div class="opt-box"></div><span>Acima de 9%</span></label>
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="fl">O que mais influencia a decisão de compra dos seus clientes?</label>
+      <div class="fh">Selecione os 3 mais importantes</div>
+      <div class="opts-wrap grid2" data-name="decisao" data-type="multi">
+        <label class="opt-item" onclick="optSel(this,'decisao',true)"><div class="opt-box"></div><span>Preço</span></label><label class="opt-item" onclick="optSel(this,'decisao',true)"><div class="opt-box"></div><span>Marca conhecida</span></label><label class="opt-item" onclick="optSel(this,'decisao',true)"><div class="opt-box"></div><span>Qualidade percebida</span></label><label class="opt-item" onclick="optSel(this,'decisao',true)"><div class="opt-box"></div><span>Design e visual</span></label><label class="opt-item" onclick="optSel(this,'decisao',true)"><div class="opt-box"></div><span>Embalagem</span></label><label class="opt-item" onclick="optSel(this,'decisao',true)"><div class="opt-box"></div><span>Prazo de entrega</span></label><label class="opt-item" onclick="optSel(this,'decisao',true)"><div class="opt-box"></div><span>Margem para o lojista</span></label><label class="opt-item" onclick="optSel(this,'decisao',true)"><div class="opt-box"></div><span>Facilidade de venda</span></label>
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="fl">O que mais dificulta vender uma nova marca para seus clientes?</label>
+      <div class="fh">Selecione todos que se aplicam</div>
+      <div class="opts-wrap grid2" data-name="dificuldade" data-type="multi">
+        <label class="opt-item" onclick="optSel(this,'dificuldade',true)"><div class="opt-box"></div><span>Marca desconhecida</span></label><label class="opt-item" onclick="optSel(this,'dificuldade',true)"><div class="opt-box"></div><span>Preço acima do esperado</span></label><label class="opt-item" onclick="optSel(this,'dificuldade',true)"><div class="opt-box"></div><span>Margem pequena</span></label><label class="opt-item" onclick="optSel(this,'dificuldade',true)"><div class="opt-box"></div><span>Mix pequeno de produtos</span></label><label class="opt-item" onclick="optSel(this,'dificuldade',true)"><div class="opt-box"></div><span>Falta de material de apoio</span></label><label class="opt-item" onclick="optSel(this,'dificuldade',true)"><div class="opt-box"></div><span>Falta de estoque</span></label><label class="opt-item" onclick="optSel(this,'dificuldade',true)"><div class="opt-box"></div><span>Prazo de entrega longo</span></label><label class="opt-item" onclick="optSel(this,'dificuldade',true)"><div class="opt-box"></div><span>Concorrência já estabelecida</span></label>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══ PARTE 7 — POSICIONAMENTO REGIONAL ══ -->
+<div class="sec">
+  <div class="sh"><div class="sh-num">Parte 7 de 9</div><div class="sh-title">Contexto Regional</div><div class="sh-goal">Objetivo: entender o perfil do mercado da sua região</div></div>
+  <div class="sb">
+
+    <div class="field">
+      <label class="fl">Seus clientes estão predominantemente em:</label>
+      <div class="opts-wrap" data-name="interior_capital" data-type="single">
+        <label class="opt-item" onclick="optSel(this,'interior_capital',false)"><div class="opt-box"></div><span>Interior — maioria cidades pequenas e médias</span></label><label class="opt-item" onclick="optSel(this,'interior_capital',false)"><div class="opt-box"></div><span>Capital ou grande cidade</span></label><label class="opt-item" onclick="optSel(this,'interior_capital',false)"><div class="opt-box"></div><span>Misto — interior e capital em proporção parecida</span></label>
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="fl">Na sua visão, qual posicionamento de preço funciona melhor para a sua carteira?</label>
+      <div class="fh">Seja direto — sua resposta vai definir se teremos linha econômica, premium ou os dois</div>
+      <div class="opts-wrap" data-name="posic_preco_real" data-type="single">
+        <label class="opt-item" onclick="optSel(this,'posic_preco_real',false)"><div class="opt-box"></div><span>Econômico — meus clientes compram por preço, qualidade é secundária</span></label><label class="opt-item" onclick="optSel(this,'posic_preco_real',false)"><div class="opt-box"></div><span>Médio — boa relação custo/benefício, preço importa mas qualidade também</span></label><label class="opt-item" onclick="optSel(this,'posic_preco_real',false)"><div class="opt-box"></div><span>Premium acessível — meus clientes topam pagar mais por algo diferente e bonito</span></label><label class="opt-item" onclick="optSel(this,'posic_preco_real',false)"><div class="opt-box"></div><span>Os dois — tenho clientes de perfis diferentes na carteira</span></label>
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="fl">O que a Havalux precisaria ter para você conseguir vender com facilidade?</label>
+      <div class="fh">Selecione tudo que faria diferença no dia a dia</div>
+      <div class="opts-wrap grid2" data-name="necessidades_rep" data-type="multi">
+        <label class="opt-item" onclick="optSel(this,'necessidades_rep',true)"><div class="opt-box"></div><span>Amostras físicas para mostrar</span></label><label class="opt-item" onclick="optSel(this,'necessidades_rep',true)"><div class="opt-box"></div><span>Catálogo impresso</span></label><label class="opt-item" onclick="optSel(this,'necessidades_rep',true)"><div class="opt-box"></div><span>Vídeos e fotos para WhatsApp</span></label><label class="opt-item" onclick="optSel(this,'necessidades_rep',true)"><div class="opt-box"></div><span>Prazo de pagamento (30/60 dias)</span></label><label class="opt-item" onclick="optSel(this,'necessidades_rep',true)"><div class="opt-box"></div><span>Pedido mínimo baixo (entrada)</span></label><label class="opt-item" onclick="optSel(this,'necessidades_rep',true)"><div class="opt-box"></div><span>Entrega rápida (até 7 dias)</span></label><label class="opt-item" onclick="optSel(this,'necessidades_rep',true)"><div class="opt-box"></div><span>Exclusividade na região</span></label><label class="opt-item" onclick="optSel(this,'necessidades_rep',true)"><div class="opt-box"></div><span>Treinamento de produto</span></label>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══ PARTE 8 — INTERESSE COMERCIAL ══ -->
+<div class="sec">
+  <div class="sh"><div class="sh-num">Parte 8 de 9</div><div class="sh-title">Interesse Comercial</div><div class="sh-goal">Objetivo: identificar os futuros representantes da Havalux</div></div>
+  <div class="sb">
+
+    <div class="field">
+      <label class="fl">Você teria interesse em representar a Havalux na sua região?</label>
+      <div class="opts-wrap" data-name="interesse" data-type="single">
+        <label class="opt-item" onclick="optSel(this,'interesse',false)"><div class="opt-box"></div><span>Sim, tenho muito interesse</span></label><label class="opt-item" onclick="optSel(this,'interesse',false)"><div class="opt-box"></div><span>Sim, mas preciso ver as amostras físicas</span></label><label class="opt-item" onclick="optSel(this,'interesse',false)"><div class="opt-box"></div><span>Talvez — quero acompanhar o desenvolvimento</span></label><label class="opt-item" onclick="optSel(this,'interesse',false)"><div class="opt-box"></div><span>Não no momento</span></label>
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="fl">Qual potencial anual de vendas você acredita poder desenvolver para a Havalux?</label>
+      <div class="opts-wrap" data-name="potencial_anual" data-type="single">
+        <label class="opt-item" onclick="optSel(this,'potencial_anual',false)"><div class="opt-box"></div><span>Até R$100 mil</span></label><label class="opt-item" onclick="optSel(this,'potencial_anual',false)"><div class="opt-box"></div><span>R$100 mil a R$300 mil</span></label><label class="opt-item" onclick="optSel(this,'potencial_anual',false)"><div class="opt-box"></div><span>R$300 mil a R$500 mil</span></label><label class="opt-item" onclick="optSel(this,'potencial_anual',false)"><div class="opt-box"></div><span>R$500 mil a R$1 milhão</span></label><label class="opt-item" onclick="optSel(this,'potencial_anual',false)"><div class="opt-box"></div><span>Acima de R$1 milhão</span></label>
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="fl">Quantos clientes você acredita conseguir abrir para a marca no primeiro ano?</label>
+      <div class="opts-wrap grid2" data-name="clientes_ano" data-type="single">
+        <label class="opt-item" onclick="optSel(this,'clientes_ano',false)"><div class="opt-box"></div><span>Até 25 clientes</span></label><label class="opt-item" onclick="optSel(this,'clientes_ano',false)"><div class="opt-box"></div><span>25 a 50 clientes</span></label><label class="opt-item" onclick="optSel(this,'clientes_ano',false)"><div class="opt-box"></div><span>50 a 100 clientes</span></label><label class="opt-item" onclick="optSel(this,'clientes_ano',false)"><div class="opt-box"></div><span>100 a 200 clientes</span></label><label class="opt-item" onclick="optSel(this,'clientes_ano',false)"><div class="opt-box"></div><span>Acima de 200 clientes</span></label>
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="fl">WhatsApp para contato</label>
+      <input type="text" id="whatsapp" placeholder="(XX) XXXXX-XXXX">
+    </div>
+
+    <div class="field">
+      <label class="fl">Qual sua principal recomendação para o lançamento da Havalux?</label>
+      <textarea id="recomendacao" placeholder="Compartilhe sua visão sobre o que a Havalux precisa fazer para ter sucesso no mercado..."></textarea>
+    </div>
+
+  </div>
+</div>
+
+</div><!-- /form-body -->
+
+<div class="sub-area" id="sub-area">
+  <button class="sub-btn" onclick="submitForm()">Enviar pesquisa →</button>
+</div>
+
+<div class="thanks" id="thanks">
+  <div class="tk-icon">🙏</div>
+  <div class="tk-title">Muito obrigado!</div>
+  <div class="tk-desc">Suas respostas foram registradas. A equipe Havalux vai analisar cada resposta para definir o mix, os preços e a estratégia de lançamento 2027. Entraremos em contato em breve.</div>
+  <div id="result-summary"></div>
+  <div style="margin-top:16px;padding:14px 16px;background:#E1F5EE;border-radius:9px;font-size:13px;color:#0F6E56;font-weight:500;text-align:left">
+    📋 Para receber o catálogo completo por WhatsApp:<br>
+    <strong style="font-size:15px">Rafael Assmann Rodrigues<br>+55 45 XXXXX-XXXX</strong>
+  </div>
+</div>
+
+<script>
+const ratings={};
+
+function updateProg(){
+  let done=0;
+  if(document.getElementById('nome').value.trim()) done++;
+  if(document.getElementById('regiao').value.trim()) done++;
+  if(document.getElementById('clientes').value) done++;
+  if(document.querySelector('[data-name=ticket_medio] .opt-item.on')) done++;
+  if(document.querySelectorAll('[data-type=multi] .opt-item.on').length>0) done++;
+  if(Object.keys(ratings).length>=6) done++;
+  if(document.querySelectorAll('.top-check:checked').length>=5) done++;
+  if(document.querySelector('.pill-opt.on')) done++;
+  if(document.querySelector('[data-name=gondola_utensilios] .opt-item.on')) done++;
+  if(document.querySelector('[data-name=essential_interesse] .opt-item.on')) done++;
+  if(document.querySelector('[data-name=posic_preco_real] .opt-item.on')) done++;
+  const pct=Math.round(done/11*100);
+  document.getElementById('pgf').style.width=pct+'%';
+  document.getElementById('pgt').textContent=pct+'% preenchido';
+}
+
+function optSel(el,name,multi){
+  if(!multi){
+    el.closest('[data-name]').querySelectorAll('.opt-item').forEach(o=>o.classList.remove('on'));
+  }
+  el.classList.toggle('on');
+  updateProg();
+}
+
+function rate(btn){
+  const val=parseInt(btn.dataset.v);
+  const wrap=btn.closest('.stars');
+  const id=wrap.dataset.id;
+  wrap.querySelectorAll('.star').forEach((s,i)=>s.classList.toggle('on',i<val));
+  ratings[id]=val;
+  const hints={1:'Sem potencial na minha região',2:'Baixo potencial',3:'Potencial médio',4:'Alto potencial',5:'Altíssimo — produto para a minha carteira!'};
+  document.getElementById('rh-'+id).textContent=hints[val]||'';
+  updateProg();
+}
+
+function checkLimit(label){
+  const cb=label.querySelector('.top-check');
+  const checked=document.querySelectorAll('.top-check:checked').length;
+  if(checked>=10&&!cb.checked){event.preventDefault();return false;}
+  setTimeout(()=>{
+    document.querySelectorAll('.sku-check').forEach(l=>l.classList.toggle('on',l.querySelector('.top-check').checked));
+    const n=document.querySelectorAll('.top-check:checked').length;
+    const ct=document.getElementById('sku-count');
+    ct.textContent=n+' de 10 selecionados';
+    ct.style.color=n===10?'#0F6E56':'#C8401A';
+    updateProg();
+  },0);
+}
+
+function pillSel(el,name){
+  document.querySelectorAll('[data-name="'+name+'"] .pill-opt').forEach(p=>p.classList.remove('on'));
+  el.classList.add('on');
+  updateProg();
+}
+
+function pedOpt(el){
+  document.querySelectorAll('.ped-opt').forEach(o=>o.classList.remove('on'));
+  el.classList.add('on');
+}
+
+function collect(){
+  const get=id=>document.getElementById(id)?.value?.trim()||'';
+  const sel=(name,multi)=>{
+    const wrap=document.querySelector('[data-name="'+name+'"]');
+    if(!wrap) return '';
+    const ons=[...wrap.querySelectorAll('.opt-item.on')].map(o=>o.querySelector('span').textContent);
+    return multi?ons:ons[0]||'';
+  };
+  const pill=name=>{
+    const el=document.querySelector('[data-name="'+name+'"] .pill-opt.on');
+    return el?el.textContent:'';
+  };
+
+  return {
+    ts:new Date().toISOString(),
+    p1:{nome:get('nome'),empresa:get('empresa'),regiao:get('regiao'),cidade:get('cidade'),
+        clientes:get('clientes'),anos:get('anos'),ticket_medio:sel('ticket_medio',false),perfil_consumidor:sel('perfil_consumidor',false),
+        canais:sel('canais',true),marcas:sel('marcas',false),quais_marcas:get('quais_marcas')},
+    p2:{mercado:sel('mercado',false),tendencia:sel('tendencia',false),categorias:sel('categorias',true),vidro_bambu:sel('vidro_bambu',false),sazonalidade:sel('sazonalidade',true),gondola_utensilios:sel('gondola_utensilios',false),essential_interesse:sel('essential_interesse',false)},
+    ratings,
+    p4:{prioridade1:get('pri1'),prioridade2:get('pri2'),prioridade3:get('pri3'),motivo_sku:get('motivo_sku'),linha_fase2:get('linha_fase2'),
+        top10:[...document.querySelectorAll('.top-check:checked')].map(c=>c.value)},
+    p5:{posicionamento:sel('posicionamento',false),referencia:sel('referencia',false),
+        precos:{pote:pill('preco_pote'),kit5:pill('preco_kit5'),spice:pill('preco_spice'),
+                kit19:pill('preco_kit19'),jarra:pill('preco_jarra'),cafe:pill('preco_cafe'),
+                talher:pill('preco_talher'),bath:pill('preco_bath')},
+        qualidade:sel('qualidade',false)},
+    p6:{pedido_min:sel('pedido_min',false),comissao:sel('comissao',false),
+        decisao:sel('decisao',true),dificuldade:sel('dificuldade',true)},
+    p7:{interior_capital:sel('interior_capital',false),posic_preco_real:sel('posic_preco_real',false),necessidades_rep:sel('necessidades_rep',true)},
+    p8:{interesse:sel('interesse',false),potencial_anual:sel('potencial_anual',false),
+        clientes_ano:sel('clientes_ano',false),
+        whatsapp:get('whatsapp'),recomendacao:get('recomendacao')},
+  };
+}
+
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzYFV-unU_cf6M6iK69UlYiMfJORqQAlgaG3GHUQvokNAwqO1t15-CjpSxL2pVebLn6uw/exec';
+
+function showThanks(data){
+  const topLines=Object.entries(data.ratings).filter(([,v])=>v>=4).sort((a,b)=>b[1]-a[1]).slice(0,4);
+  const lineNames={org_premium:'Organize Premium',org_smart:'Organize Smart',spice:'Spice',storage:'Storage',chef_sil:'Chef Silicone',chef_pro:'Chef Pro 304',signature:'Signature',table:'Table',bake:'Bake',bath:'Bath',smart_clean:'Smart Clean',go:'Go'};
+  const starsHtml=topLines.map(([k,v])=>`<span class="gold">${'★'.repeat(v)}</span> ${lineNames[k]||k}`).join('<br>');
+  document.getElementById('result-summary').innerHTML=`
+    <div class="rc"><div class="rt">Representante</div><div class="rv"><strong>${data.p1.nome}</strong><br>${data.p1.regiao}${data.p1.cidade?' · '+data.p1.cidade:''}<br>${data.p1.clientes} clientes ativos<br>Canais: ${[].concat(data.p1.canais).join(', ')||'—'}</div></div>
+    ${starsHtml?'<div class="rc"><div class="rt">Linhas com maior potencial</div><div class="rv">'+starsHtml+'</div></div>':''}
+    ${data.p4.top10.length?'<div class="rc"><div class="rt">Top 10 SKUs escolhidos</div><div class="rv">'+data.p4.top10.join('<br>')+'</div></div>':''}
+    ${data.p8.potencial_anual?'<div class="rc"><div class="rt">Potencial anual estimado</div><div class="rv">'+data.p8.potencial_anual+'</div></div>':''}
+    ${data.p5.posicionamento?'<div class="rc"><div class="rt">Posicionamento ideal</div><div class="rv">'+data.p5.posicionamento+'</div></div>':''}
+    ${data.p8.recomendacao?'<div class="rc"><div class="rt">Recomendação principal</div><div class="rv">"'+data.p8.recomendacao+'"</div></div>':''}
+  `;
+  document.getElementById('form-body').style.display='none';
+  document.getElementById('sub-area').style.display='none';
+  document.querySelector('.pg-wrap').style.display='none';
+  document.getElementById('thanks').style.display='block';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function submitForm(){
+  let ok=true;
+  ['f-nome','f-regiao','f-clientes'].forEach(id=>{
+    document.getElementById(id)?.classList.remove('error');
+  });
+  if(!document.getElementById('nome').value.trim()){document.getElementById('f-nome').classList.add('error');ok=false;}
+  if(!document.getElementById('regiao').value.trim()){document.getElementById('f-regiao').classList.add('error');ok=false;}
+  if(!document.getElementById('clientes').value){document.getElementById('f-clientes').classList.add('error');ok=false;}
+  if(!ok){document.getElementById('f-nome').scrollIntoView({behavior:'smooth',block:'center'});return;}
+
+  const data=collect();
+
+  // Desabilita botão e mostra loading
+  const btn=document.querySelector('.sub-btn');
+  btn.disabled=true;
+  btn.textContent='Enviando...';
+
+  fetch(APPS_SCRIPT_URL, {
+    method:'POST',
+    mode:'no-cors',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify(data)
+  })
+  .then(()=>{
+    showThanks(data);
+  })
+  .catch(err=>{
+    // Mesmo com erro de rede, mostra agradecimento (no-cors não retorna erro real)
+    console.error('Erro ao enviar:', err);
+    showThanks(data);
+  })
+  .finally(()=>{
+    btn.disabled=false;
+    btn.textContent='Enviar pesquisa →';
+  });
+}
+</script>
+</body>
+</html>
